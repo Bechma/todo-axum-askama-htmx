@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO with HTMX</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="/assets/js/htmx.org@1.9.5_dist_htmx.min.js"></script>
+    <script src="/assets/js/hyperscript.org@0.9.11_dist__hyperscript.min.js"></script>
+    <script src="/assets/js/fontawesome.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/f4845cfa75.js" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+<main class="flex flex-row justify-center w-full">
+    <div class="flex flex-col justify-center gap-10 w-full">
+        <div class="flex flex-col items-center gap-3 bg-zinc-100 p-10 rounded-lg">
+            <h1 class="text-5xl font-bold pb-5">Your TODO list</h1>
+            <!--suppress XmlUnboundNsPrefix -->
+            <form hx-post="/api/todos"
+                  hx-target="#todo_list"
+                  hx-swap="beforeend transition:true"
+                  hx-on::after-request="if(event.detail.successful) this.reset()"
+                  class="relative"
+            >
+                <input type="text" name="text" aria-label="Input a new todo" placeholder="Write a new todo!"
+                       class="text-lg bg-white w-96
+                              pl-4 pr-4 pt-2 pb-2
+                              placeholder:text-gray-500
+                              border-2 rounded-3xl"
+                >
+                <button type="submit" class="absolute inset-y-0 right-0 items-center pr-4">
+                    <i class="fa-solid fa-paper-plane fa-lg"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="flex flex-row justify-left w-full">
+            <ul class="flex flex-col items-center divide-y w-full" id="todo_list">
+                {% for todo in todos %}
+                {{ todo|safe }}
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

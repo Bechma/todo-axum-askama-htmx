@@ -1,0 +1,42 @@
+<li class="flex flex-row gap-8 w-1/2 p-4" id="todo_item{{id}}">
+    <button hx-put="/api/todos/{{id}}/done"
+            hx-target="#todo_item{{id}}"
+            hx-swap="outerHTML"
+            class="w-1/6"
+    >
+        <i class="fa-regular fa-square{% if done %}-check{% endif %} fa-lg"></i>
+    </button>
+    <div class="w-4/6">
+        <p id="todo_text{{id}}" class="text-lg pl-2 pr-2 pt-1 pb-1">{{text}}</p>
+        <form id="todo_change{{id}}"
+              _="on htmx:afterRequest
+                    if event.detail.failed
+                        add .focus-visible:outline-red-500 to #todo_change_input{{id}} then
+                        add .border-red-500 to #todo_change_input{{id}}"
+              hx-put="/api/todos/{{id}}/text"
+              hx-target="#todo_item{{id}}"
+              hx-swap="outerHTML"
+              class="w-full hidden">
+            <input type="text" name="text" value="{{text}}" id="todo_change_input{{id}}"
+                   class="text-lg pl-2 pr-2 pt-1 pb-1 w-full placeholder:text-black border-2 rounded-lg"
+                   aria-label="change TODO text">
+        </form>
+    </div>
+    <div class="flex gap-2 w-1/6">
+        <button _="on click
+                    toggle .hidden on #todo_change{{id}} then
+                    toggle .hidden on #todo_text{{id}} then
+                    toggle .hidden on #todo_modify{{id}} then
+                    toggle .hidden on #todo_cancel{{id}}">
+            <i id="todo_modify{{id}}" class="fa-solid fa-pen-to-square fa-lg"></i>
+            <i id="todo_cancel{{id}}" class="fa-solid fa-xmark fa-lg hidden"></i>
+        </button>
+        <button hx-delete="/api/todos/{{id}}"
+                hx-target="#todo_item{{id}}"
+                hx-swap="delete"
+                class="btn-delete"
+        >
+            <i class="fa-solid fa-trash fa-lg"></i>
+        </button>
+    </div>
+</li>
