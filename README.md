@@ -11,9 +11,6 @@ You need to have [rust](https://www.rust-lang.org/) installed.
 
 ```bash
 export DATABASE_URL=DATABASE_URL=sqlite://./todosdb.sqlite
-cargo install sqlx-cli
-sqlx database create
-sqlx migrate run
 cargo run
 ```
 
@@ -32,4 +29,34 @@ npm run dev
 # Remember have your DATABASE_URL exported
 cargo install cargo-watch
 cargo watch -x run -w templates -w src -w assets
+```
+
+# Production
+
+To have a production tailwind bundle
+
+`npm run prod`
+
+To have a production ready web server:
+
+`cargo build --release`
+
+You will need to keep the `assets` and `templates` folders relative to the binary generated:
+
+```
+.
+├── assets
+│   ├── css
+│   │   └── main.css
+│   ├── favicon.ico
+│   └── js
+│       ├── fontawesome.js
+│       ├── htmx.org@1.9.5_dist_htmx.min.js
+│       └── hyperscript.org@0.9.11_dist__hyperscript.min.js
+├── templates
+│   ├── components
+│   │   └── todo.html
+│   ├── index.html
+│   └── input.css
+└── todox
 ```
