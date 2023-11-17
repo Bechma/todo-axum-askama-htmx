@@ -4,6 +4,6 @@
     "prod": "npx tailwindcss -i ./templates/input.css -o ./assets/css/main.css --minify"
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.5"
   }
 }

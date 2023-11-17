@@ -10,7 +10,7 @@ Sample application with:
 You need to have [rust](https://www.rust-lang.org/) installed.
 
 ```bash
-export DATABASE_URL=DATABASE_URL=sqlite://./todosdb.sqlite
+export DATABASE_URL=sqlite://./todosdb.sqlite
 cargo run
 ```
 
@@ -53,10 +53,6 @@ You will need to keep the `assets` and `templates` folders relative to the binar
 │       ├── fontawesome.js
 │       ├── htmx.org@1.9.5_dist_htmx.min.js
 │       └── hyperscript.org@0.9.11_dist__hyperscript.min.js
-├── templates
-│   ├── components
-│   │   └── todo.html
-│   ├── index.html
-│   └── input.css
+├── todosdb.sqlite
 └── todox
 ```

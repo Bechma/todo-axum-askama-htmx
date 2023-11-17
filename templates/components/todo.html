@@ -7,7 +7,7 @@
         <i class="fa-regular fa-square{% if done %}-check{% endif %} fa-lg"></i>
     </button>
     <div class="w-4/6">
-        <p id="todo_text{{id}}" class="text-lg pl-2 pr-2 pt-1 pb-1">{{text}}</p>
+        <p id="todo_text{{id}}" class="text-lg pl-2 pr-2 pt-1 pb-1{% if done %} line-through{% endif %}">{{text}}</p>
         <form id="todo_change{{id}}"
               _="on htmx:afterRequest
                     if event.detail.failed
