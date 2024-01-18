@@ -74,10 +74,9 @@ async fn main() {
     };
 
     // run it
-    let addr = std::net::SocketAddr::from(([127, 0, 0, 1], 3000));
-    tracing::info!("listening on {}", addr);
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
+    tracing::info!("listening on {:?}", listener.local_addr().unwrap());
+    axum::serve(listener, app).await.unwrap();
 }
