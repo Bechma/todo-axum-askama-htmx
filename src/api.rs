@@ -3,9 +3,9 @@ use serde::Deserialize;
 pub fn api_routes() -> axum::Router<crate::db::DBPool> {
     axum::Router::new()
         .route("/todos", axum::routing::post(add_todo))
-        .route("/todos/:id", axum::routing::delete(delete_todo))
-        .route("/todos/:id/done", axum::routing::put(done_todo))
-        .route("/todos/:id/text", axum::routing::put(change_text))
+        .route("/todos/{id}", axum::routing::delete(delete_todo))
+        .route("/todos/{id}/done", axum::routing::put(done_todo))
+        .route("/todos/{id}/text", axum::routing::put(change_text))
 }
 
 async fn delete_todo(
