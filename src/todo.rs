@@ -1,5 +1,4 @@
 use askama::Template;
-use axum::response::{Html, IntoResponse};
 
 #[derive(askama::Template)]
 #[template(path = "components/todo.html")]
@@ -11,13 +10,16 @@ pub struct TodoTemplate {
 
 #[derive(askama::Template)]
 #[template(path = "index.html")]
-struct IndexTemplate {
-    todos: Vec<TodoTemplate>,
+pub struct IndexTemplate {
+    pub todos: Vec<TodoTemplate>,
 }
 
-impl IntoResponse for TodoTemplate {
+macro_rules! impl_into_response {
+    ($($ty:ty),*) => {
+        $(
+impl axum::response::IntoResponse for $ty {
     fn into_response(self) -> axum::response::Response {
-        Html(self.render().map(Html).map_err(|err| {
+        axum::response::Html(self.render().map(axum::response::Html).map_err(|err| {
             (
                 axum::http::StatusCode::INTERNAL_SERVER_ERROR,
                 err.to_string(),
@@ -26,3 +28,8 @@ impl IntoResponse for TodoTemplate {
         .into_response()
     }
 }
+        )*
+    };
+}
+
+impl_into_response!(TodoTemplate, IndexTemplate);
