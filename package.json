@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "dev": "npx tailwindcss -i ./templates/input.css -o ./assets/css/main.css --watch",
-    "prod": "npx tailwindcss -i ./templates/input.css -o ./assets/css/main.css --minify"
+    "dev": "npx @tailwindcss/cli -i ./templates/input.css -o ./assets/css/main.css --watch",
+    "prod": "npx @tailwindcss/cli -i ./templates/input.css -o ./assets/css/main.css --minify"
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.5"
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
   }
 }
